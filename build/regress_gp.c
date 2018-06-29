@@ -112,12 +112,15 @@ extern Datum autoinc(PG_FUNCTION_ARGS);
 static EPlan *find_plan(char *ident, EPlan ** eplan, int *nplans);
 
 
-
+/*
+CREATE FUNCTION hackday2018_hello() RETURNS varchar
+    AS '/opt/gpdb/regress.so', 'hackday2018_hello' LANGUAGE C READS SQL DATA;
+*/
 PG_FUNCTION_INFO_V1(hackday2018_hello);
 Datum
 hackday2018_hello(PG_FUNCTION_ARGS)
 {
-	PG_RETURN_DATUM(CStringGetTextDatum("Hello Hackday2018 from gp-push!"));
+	PG_RETURN_DATUM(CStringGetTextDatum("Hello Hackday2018 Fixed"));
 }
 
 PG_FUNCTION_INFO_V1(multiset_scalar_value);
