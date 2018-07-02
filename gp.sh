@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
 
-# stop gpdb
-kubectl exec -it master ssh master -- gpstop -a
+set -ex
 
 eval $(minikube docker-env)
 # build binary
 docker build build/ -t build:latest
 # get regress.so
-docker run build:latest
-docker cp $(docker ps -qa | head -n1):/usr/local/gpdb/lib/postgresql/regress.so deploy/
-docker rm $(docker ps -qa | head -n1)
+rm -fr deploy/gpdb/
+docker run --name build build:latest
+docker cp build:/opt/gpdb/ deploy/
+docker rm build
 # build deploy
 new_tag=greenplum-for-kubernetes:hackday2018.$(pwgen 8 1)
 docker build deploy/ -t ${new_tag}
@@ -22,5 +22,3 @@ kubectl set image pod/segment-0b gpdb=${new_tag}
 watch kubectl get pods
 # reset dns on master
 kubectl exec -it master ssh -- -oStrictHostKeyChecking=no master tools/reset_container_dns.bash
-# start gpdb
-kubectl exec -it master ssh -- master gpstart -a

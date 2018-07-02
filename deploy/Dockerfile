@@ -1,3 +1,5 @@
 FROM greenplum-for-kubernetes:latest
 
-COPY regress.so /opt/gpdb
+RUN sudo rm -fr /opt/gpdb
+
+COPY --chown=gpadmin:gpadmin gpdb /opt/gpdb/
