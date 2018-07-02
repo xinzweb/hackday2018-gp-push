@@ -1,8 +1,10 @@
-# docker file to build regress.so
-FROM build:5X_STABLE 
+FROM build:master
 
-# build the new regress.so
+# upload new src
+COPY src/ /tmp/input_src/src/
+RUN cp -rf /tmp/input_src/src/ /gpdb
+
+# build
 WORKDIR /gpdb
-COPY regress_gp.c src/test/regress/
-RUN make -C src/test/regress 
-RUN make -C src/test/regress install-lib 
+RUN make -j4 -s
+RUN make install 

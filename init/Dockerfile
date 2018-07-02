@@ -1,11 +1,11 @@
-# docker file to build regress.so
+# docker file to build greenplum
 FROM pivotaldata/ubuntu-gpdb-dev:16.04_gcc_6_3
 
 WORKDIR /
 RUN git clone https://github.com/greenplum-db/gpdb.git
 
 WORKDIR /gpdb
-RUN git checkout
+RUN git checkout $branch
 
 RUN bash -c "cd /gpdb;\
 CFLAGS='-O0 -g' ./configure --disable-orca --disable-gpfdist --with-python --prefix=/opt/gpdb --enable-debug"
