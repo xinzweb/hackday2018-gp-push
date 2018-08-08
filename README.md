@@ -25,7 +25,7 @@ This will build first image used to be pushed by `./gp.sh`.
 You have to provide a branch name to tell it which branch to build. It's always
 good to start with `master` branch.
 
-# Copy an updated file under src/
+# Copy an updated file under `build/src/`
 
 Just any file you want to change and make it into same directory structure as
 the original `src/` directory.
