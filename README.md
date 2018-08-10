@@ -35,3 +35,10 @@ the original `src/` directory.
 ```
 ./gp.sh master
 ```
+
+# To Push Binaries from different Repo
+
+```
+./init_gp.sh my_branch https://github.com/xinzweb/gpdb.git
+./gp.sh my_branch
+```

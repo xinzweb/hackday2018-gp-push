@@ -2,10 +2,13 @@
 FROM pivotaldata/ubuntu-gpdb-dev:16.04_gcc_6_3
 
 WORKDIR /
-RUN git clone https://github.com/greenplum-db/gpdb.git
+ARG repo
+RUN git clone $repo
 
 WORKDIR /gpdb
-RUN git checkout $branch
+
+ARG branch
+RUN git fetch origin && git checkout $branch
 
 RUN bash -c "cd /gpdb;\
 CFLAGS='-O0 -g' ./configure --disable-orca --disable-gpfdist --with-python --prefix=/opt/gpdb --enable-debug"
