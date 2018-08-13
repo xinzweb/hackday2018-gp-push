@@ -14,5 +14,4 @@ if [ ! -z ${2+x} ] ; then
 	input_repo=$2
 fi
 
-eval $(minikube docker-env)
 docker build --build-arg branch=${input_branch} --build-arg repo=${input_repo} init/ -t build:${input_branch}

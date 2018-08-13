@@ -18,8 +18,8 @@ set -ex
 # has to provide a branch to build from
 branch=$1
 
-eval $(minikube docker-env)
 # build binary
+cp -f build/Dockerfile.template build/Dockerfile
 sed -i '1s/^.*$/FROM\ build:'"$branch"'/' build/Dockerfile
 docker build build/ -t build:latest
 # build deploy
